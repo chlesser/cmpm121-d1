@@ -4,6 +4,7 @@
 import tileUrl from "./assets/tile.svg?no-inline";
 import arrowImage from "./assets/arrow.png";
 import archeryBackground from "./assets/archery.svg?no-inline";
+import points_up from "./assets/points_up.mp3";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -135,16 +136,9 @@ const initialPos = getRandomPosition();
 arrowButton.style.left = `${initialPos.x}px`;
 arrowButton.style.top = `${initialPos.y}px`;
 
-const arrowSound = new Audio(
-  "src/assets/trimmed-dragon-studio-thud-sound-effect-405470.mp3",
-);
-
 arrowButton.addEventListener("click", (event) => {
   if (arrowsOnScreen >= upgradeMaxArrowButton.stat) return;
   drawArrowAtMouse(event);
-  // added a sound effect to play each time an arrow is shot
-  arrowSound.currentTime = 0;
-  arrowSound.play();
   score += upgradeArrowButton.stat;
   updateScore();
   createFadingText(event.clientX, event.clientY, upgradeArrowButton.stat);
@@ -245,6 +239,8 @@ function buyUpgrade(button: UpgradeButton) {
   button.stage++;
   setCost(button);
   updateButtonText(button);
+  const points_up_sound = new Audio(points_up);
+  points_up_sound.play();
   updateScore();
 }
 function initializeButton(button: UpgradeButton) {
