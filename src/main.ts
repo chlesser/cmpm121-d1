@@ -5,6 +5,7 @@ import tileUrl from "./assets/tile.svg?no-inline";
 import arrowImage from "./assets/arrow.png";
 import archeryBackground from "./assets/archery.svg?no-inline";
 import points_up from "./assets/points_up.mp3";
+import arrow_shot from "./assets/trimmed-dragon-studio-thud-sound-effect-405470.mp3";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -138,6 +139,8 @@ arrowButton.style.top = `${initialPos.y}px`;
 
 arrowButton.addEventListener("click", (event) => {
   if (arrowsOnScreen >= upgradeMaxArrowButton.stat) return;
+  const arrow_shot_sound = new Audio(arrow_shot);
+  arrow_shot_sound.play();
   drawArrowAtMouse(event);
   score += upgradeArrowButton.stat;
   updateScore();
